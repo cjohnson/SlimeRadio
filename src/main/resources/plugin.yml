@@ -1,0 +1,7 @@
+name: SlimeDetector
+version: '${version}'
+main: org.cjohnson.slimedetector.SlimeDetector
+api-version: 1.19
+commands:
+  slime:
+    description: Finds if slime chunk or not
