@@ -4,11 +4,13 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public abstract class SlimeMessages {
     private static BaseComponent disabledMessage;
     private static BaseComponent enabledMesssage;
+    private static BaseComponent nonPlayerMessage;
 
     public static void sendDisabledMessage(Player player) {
         if(disabledMessage != null) {
@@ -64,5 +66,17 @@ public abstract class SlimeMessages {
         enabledMesssage.addExtra(extraMessage);
 
         player.spigot().sendMessage(enabledMesssage);
+    }
+
+    public static void sendNonPlayerMessage(CommandSender sender) {
+        if(nonPlayerMessage != null) {
+            sender.spigot().sendMessage(nonPlayerMessage);
+            return;
+        }
+
+        nonPlayerMessage = new TextComponent("The slime command is not supported for non-players.");
+        nonPlayerMessage.setColor(ChatColor.RED);
+
+        sender.spigot().sendMessage(nonPlayerMessage);
     }
 }
