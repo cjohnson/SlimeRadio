@@ -7,49 +7,62 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 
 public abstract class SlimeMessages {
+    private static BaseComponent disabledMessage;
+    private static BaseComponent enabledMesssage;
+
     public static void sendDisabledMessage(Player player) {
-        BaseComponent message = new TextComponent();
+        if(disabledMessage != null) {
+            player.spigot().sendMessage(disabledMessage);
+            return;
+        }
+
+        disabledMessage = new TextComponent();
 
         TextComponent openBracket = new TextComponent("[");
         openBracket.setColor(ChatColor.DARK_GRAY);
-        message.addExtra(openBracket);
+        disabledMessage.addExtra(openBracket);
 
         TextComponent off = new TextComponent("OFF");
         off.setColor(ChatColor.RED);
         off.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/slime"));
-        message.addExtra(off);
+        disabledMessage.addExtra(off);
 
         TextComponent closedBracket = new TextComponent("] ");
         closedBracket.setColor(ChatColor.DARK_GRAY);
-        message.addExtra(closedBracket);
+        disabledMessage.addExtra(closedBracket);
 
         TextComponent extraMessage = new TextComponent("Slime Radio is disabled.");
         extraMessage.setColor(ChatColor.GRAY);
-        message.addExtra(extraMessage);
+        disabledMessage.addExtra(extraMessage);
 
-        player.spigot().sendMessage(message);
+        player.spigot().sendMessage(disabledMessage);
     }
 
     public static void sendEnabledMessage(Player player) {
-        BaseComponent message = new TextComponent();
+        if(enabledMesssage != null) {
+            player.spigot().sendMessage(enabledMesssage);
+            return;
+        }
+
+        enabledMesssage = new TextComponent();
 
         TextComponent openBracket = new TextComponent("[");
         openBracket.setColor(ChatColor.DARK_GRAY);
-        message.addExtra(openBracket);
+        enabledMesssage.addExtra(openBracket);
 
         TextComponent off = new TextComponent("ON");
         off.setColor(ChatColor.DARK_GREEN);
         off.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/slime"));
-        message.addExtra(off);
+        enabledMesssage.addExtra(off);
 
         TextComponent closedBracket = new TextComponent("] ");
         closedBracket.setColor(ChatColor.DARK_GRAY);
-        message.addExtra(closedBracket);
+        enabledMesssage.addExtra(closedBracket);
 
         TextComponent extraMessage = new TextComponent("Slime Radio is enabled.");
         extraMessage.setColor(ChatColor.GRAY);
-        message.addExtra(extraMessage);
+        enabledMesssage.addExtra(extraMessage);
 
-        player.spigot().sendMessage(message);
+        player.spigot().sendMessage(enabledMesssage);
     }
 }
